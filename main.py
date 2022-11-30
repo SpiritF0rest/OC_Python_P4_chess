@@ -1,5 +1,5 @@
-from controllers import menu_ctrl
+from controllers.menu_ctrl import MenuController
+
 
 if __name__ == "__main__":
-    separator = f"{'♜♞♝♚♛♝♞♜' * 3}\n{'♟♟♟♟♟♟♟♟' * 3}"
-    menu_ctrl.home_menu_ctrl(separator)
+    MenuController().home_menu_ctrl()
