@@ -1,6 +1,6 @@
 class Round:
-    def __init__(self, name, matches, start, end):
+    def __init__(self, name, start, end, matches=None):
         self.name = name
-        self.matches = matches
         self.start = start
         self.end = end
+        self.matches = [] if matches is None else matches
