@@ -8,7 +8,7 @@ class MenuController:
 
     def __init__(self):
         self.player_controller = PlayerController()
-        self.tournament_controller = TournamentController(self.player_controller.players)
+        self.tournament_controller = TournamentController(players=self.player_controller.players)
 
     def stop_script(self):
         print("À bientôt !")
@@ -53,7 +53,7 @@ class MenuController:
             },
             "2": {
                 "text": "Sélectionner les joueurs",
-                "action": None
+                "action": self.tournament_controller.add_player_to_tournament
             },
             "3": {
                 "text": "Lancer le tournoi",

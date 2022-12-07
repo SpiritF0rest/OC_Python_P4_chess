@@ -66,6 +66,33 @@ def add_tournament_view():
     - Début: {tournament["start"]}
     - Fin: {tournament["end"]}
     - Contrôle de temps: {tournament["time_ctrl"]}
-    - Nombre de tours: {tournament["total_rounds"] if hasattr(tournament, "total_rounds") else 4}""")
+    - Nombre de tours: {tournament["total_rounds"] if "total_rounds" in tournament else 4}""")
     return tournament
 
+
+def add_player_to_tournament_view(tournaments, players):
+    player_tournament_pair = {
+        "tournament": "",
+        "player": ""
+    }
+    print(SEPARATOR)
+    if len(tournaments) == 0:
+        print("Aucun tournoi existant. Merci de créer un tournoi avant de pouvoir y ajouter un joueur.")
+        return None
+    elif len(players) == 0:
+        print("Aucun joueur existant. Merci de créer des joueurs avant de pouvoir les ajouter au tournoi.")
+        return None
+    tournament_choice = input(f"""Sélectionnez un tournoi auquel ajouter un joueur:
+    {[f"{tournaments.index(el)}: {el.name}" for el in tournaments]}
+    choix: """)
+    while not tournament_choice.isdigit() or int(tournament_choice) < 0 or int(tournament_choice) > len(tournaments):
+        tournament_choice = input("Merci de saisir une option valide. Tournoi n°: ")
+    player_tournament_pair["tournament"] = int(tournament_choice)
+    player_choice = input(f"""Sélectionnez un joueur à ajouter au tournoi:
+    {[f"{players.index(el)}: {el.firstname} {el.lastname}" for el in players]}
+    choix: """)
+    while not player_choice.isdigit() or int(player_choice) < 0 or int(player_choice) > len(players):
+        player_choice = input("Merci de saisir une option valide. Joueur n°: ")
+    player_tournament_pair["player"] = int(player_choice)
+    print(f"Joueur ajouté au tournoi.")
+    return player_tournament_pair
