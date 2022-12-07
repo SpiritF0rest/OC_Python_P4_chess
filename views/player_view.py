@@ -24,7 +24,7 @@ def add_player_view():
         date_control = False
         today = datetime.today().strftime("%d-%m-%Y")
         while date_control is not True:
-            player_birth_date = input("Date de naissance: ")
+            player_birth_date = input("Date de naissance, ex: 14-08-1987: ")
             try:
                 datetime.strptime(player_birth_date, "%d-%m-%Y")
                 if datetime.strptime(player_birth_date, "%d-%m-%Y") < datetime.strptime(today, "%d-%m-%Y"):
@@ -35,7 +35,7 @@ def add_player_view():
             except ValueError:
                 print("Merci d'entrer une date d'anniversaire valide, ex: 14-08-1987")
         player_gender = input("Sexe (homme, femme ou autre): ")
-        while player_gender is not ("homme" or "femme" or "autre"):
+        while player_gender not in ["homme", "femme", "autre"]:
             player_gender = input("Merci d'entrer une des valeurs (homme, femme ou autre). Sexe: ")
         player["gender"] = player_gender
         ranking_control = False
