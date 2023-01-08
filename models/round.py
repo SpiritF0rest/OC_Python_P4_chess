@@ -1,5 +1,5 @@
 class Round:
-    def __init__(self, name, start, end, matches=None):
+    def __init__(self, name, start, end=None, matches=None):
         self.name = name
         self.start = start
         self.end = end

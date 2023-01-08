@@ -55,7 +55,7 @@ def add_tournament_view():
             tournament_total_rounds_update = input("Merci de répondre par oui ou non. Changement du nombre de tours ? ")
         if tournament_total_rounds_update == "oui":
             tournament_total_rounds = input("Nombre de tours: ")
-            while not tournament_total_rounds.isdigit() and tournament_total_rounds < 3:
+            while not tournament_total_rounds.isdigit() and int(tournament_total_rounds) < 3:
                 tournament_total_rounds = input("Merci d'entrer un nombre de tour valide.")
             tournament["total_rounds"] = tournament_total_rounds
         else:
@@ -70,29 +70,29 @@ def add_tournament_view():
     return tournament
 
 
-def add_player_to_tournament_view(tournaments, players):
-    player_tournament_pair = {
-        "tournament": "",
-        "player": ""
-    }
+def add_player_to_tournament_view(tournament, players):
     print(SEPARATOR)
-    if len(tournaments) == 0:
-        print("Aucun tournoi existant. Merci de créer un tournoi avant de pouvoir y ajouter un joueur.")
-        return None
-    elif len(players) == 0:
+    if len(players) == 0:
         print("Aucun joueur existant. Merci de créer des joueurs avant de pouvoir les ajouter au tournoi.")
         return None
-    tournament_choice = input(f"""Sélectionnez un tournoi auquel ajouter un joueur:
-    {[f"{tournaments.index(el)}: {el.name}" for el in tournaments]}
-    choix: """)
-    while not tournament_choice.isdigit() or int(tournament_choice) < 0 or int(tournament_choice) > len(tournaments):
-        tournament_choice = input("Merci de saisir une option valide. Tournoi n°: ")
-    player_tournament_pair["tournament"] = int(tournament_choice)
+    print(f"here the tournament {tournament}")
+    available_players = [player for player in players if player not in tournament.players]
     player_choice = input(f"""Sélectionnez un joueur à ajouter au tournoi:
-    {[f"{players.index(el)}: {el.firstname} {el.lastname}" for el in players]}
+    {[f"{available_players.index(el)}: {el.firstname} {el.lastname}" for el in available_players]}
     choix: """)
-    while not player_choice.isdigit() or int(player_choice) < 0 or int(player_choice) > len(players):
+    while not player_choice.isdigit() or int(player_choice) < 0 or int(player_choice) >= len(players):
         player_choice = input("Merci de saisir une option valide. Joueur n°: ")
-    player_tournament_pair["player"] = int(player_choice)
-    print(f"Joueur ajouté au tournoi.")
-    return player_tournament_pair
+    return available_players[int(player_choice)]
+
+
+def choose_tournament_view(tournaments):
+    print(SEPARATOR)
+    if len(tournaments) == 0:
+        print("Aucun tournoi existant ou répondant aux critères.")
+        return None
+    tournament_choice = input(f"""Sélectionnez un tournoi:
+        {[f"{tournaments.index(el)}: {el.name}" for el in tournaments]}
+        choix: """)
+    while not tournament_choice.isdigit() or int(tournament_choice) < 0 or int(tournament_choice) >= len(tournaments):
+        tournament_choice = input("Merci de saisir une option valide. Tournoi n°: ")
+    return tournaments[int(tournament_choice)]

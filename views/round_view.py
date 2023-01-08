@@ -1,4 +1,3 @@
-from datetime import datetime
 from settings import SEPARATOR
 from models.match import Match
 
@@ -14,9 +13,7 @@ def generate_players_pairs(players, current_round, players_total_score):
             opponent = players_part_down[players_part_up.index(player)]
             player.opponents.append(opponent)
             opponent.opponents.append(player)
-            new_match = Match()
-            new_match.player_one = player
-            new_match.player_two = opponent
+            new_match = Match(player, opponent)
             current_round.matches.append(new_match)
     #ANOTHER ROUNDS
     else:
@@ -37,12 +34,31 @@ def generate_players_pairs(players, current_round, players_total_score):
                 if player not in opponent.opponents:
                     player.opponents.append(opponent)
                     opponent.opponents.append(player)
-                    new_match = Match()
-                    new_match.player_one = player
-                    new_match.player_two = opponent
+                    new_match = Match(player, opponent)
                     current_round.matches.append(new_match)
                     round_players_list.remove(player)
                     round_players_list.remove(opponent)
                     control = True
                 else:
                     j += 1
+
+
+def enter_results(select_round, tournament):
+    possible_scores = ["0", "0.5", "1"]
+    for match in select_round.matches:
+        print(SEPARATOR)
+        print(f"Résultat match {match.player_one.name} VS {match.player_two.name}")
+        score_player_one = input(f"Score {match.player_one.name}: ")
+        while score_player_one not in possible_scores:
+            score_player_one = input(f"Merci d'entrer un score valide (0, 1 ou 0.5). Score {match.player_one.name}: ")
+        score_player_two = input(f"Score {match.player_two.name}: ")
+        while score_player_two not in possible_scores:
+            score_player_two = input(f"Merci d'entrer un score valide (0, 1 ou 0.5). Score {match.player_two.name}: ")
+        match.result.append(int(score_player_one))
+        match.result.append(int(score_player_two))
+        if select_round.name == "Round 1":
+            tournament.players_total_score[match.player_one] = int(score_player_one)
+            tournament.players_total_score[match.player_two] = int(score_player_two)
+        else:
+            tournament.players_total_score[match.player_one] += int(score_player_one)
+            tournament.players_total_score[match.player_two] += int(score_player_two)

@@ -1,5 +1,6 @@
 from controllers.player_ctrl import PlayerController
 from controllers.tournament_ctrl import TournamentController
+from controllers.round_ctrl import RoundController
 from views import menu_view
 
 
@@ -9,6 +10,7 @@ class MenuController:
     def __init__(self):
         self.player_controller = PlayerController()
         self.tournament_controller = TournamentController(players=self.player_controller.players)
+        self.round_controller = RoundController(tournaments=self.tournament_controller.tournaments)
 
     def stop_script(self):
         print("À bientôt !")
@@ -18,7 +20,7 @@ class MenuController:
         while self.run_control is True:
             menu = {
                 "1": {
-                    "text": "Créer un nouveau tournoi",
+                    "text": "Gestion tournois",
                     "action": self.tournament_menu
                 },
                 "2": {
@@ -44,6 +46,7 @@ class MenuController:
             }
             choice = menu_view.print_menu(menu, "Votre choix: ", "Menu principal: ")
             menu[choice]["action"]()
+        return 0
 
     def tournament_menu(self):
         menu = {
@@ -56,8 +59,8 @@ class MenuController:
                 "action": self.tournament_controller.add_player_to_tournament
             },
             "3": {
-                "text": "Lancer le tournoi",
-                "action": None
+                "text": "Gestion des rounds",
+                "action": self.round_menu
             },
             "4": {
                 "text": "Terminer le tournoi",
@@ -151,4 +154,26 @@ class MenuController:
             },
         }
         choice = menu_view.print_menu(menu, "Votre choix: ", "Un rapport ?")
+        menu[choice]["action"]()
+
+    def round_menu(self):
+        menu = {
+            "1": {
+                "text": "Créer un round",
+                "action": self.round_controller.start_round
+            },
+            "2": {
+                "text": "Saisir les résultats d'un round",
+                "action": None
+            },
+            "3": {
+                "text": "Sauvegarder",
+                "action": None
+            },
+            "4": {
+                "text": "Retour au menu principal",
+                "action": self.home_menu_ctrl
+            },
+        }
+        choice = menu_view.print_menu(menu, "Votre choix: ", "Un nouveau classement ?")
         menu[choice]["action"]()

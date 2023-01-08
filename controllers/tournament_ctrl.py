@@ -1,4 +1,5 @@
 from models.tournament import Tournament
+from controllers.round_ctrl import RoundController
 from views import tournament_view
 
 
@@ -21,7 +22,13 @@ class TournamentController:
         self.tournaments.append(new_tournament)
 
     def add_player_to_tournament(self):
-        select_player = tournament_view.add_player_to_tournament_view(self.tournaments, self.players)
+        select_tournament = tournament_view.choose_tournament_view(self.tournaments)
+        select_player = tournament_view.add_player_to_tournament_view(select_tournament, self.players)
         if select_player is not None:
-            self.tournaments[select_player["tournament"]].players.append(select_player["player"])
-            print(self.tournaments[select_player["tournament"]].players)
+            select_tournament.players.append(select_player)
+            print(select_tournament)
+
+    def run_tournament(self):
+        #ici on passe la liste des joueurs à round_ctrl avec le nombre de tours et index du tournoi
+
+        pass
