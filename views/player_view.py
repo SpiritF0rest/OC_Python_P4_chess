@@ -44,7 +44,7 @@ def add_player_view():
             try:
                 rank = int(player_ranking)
                 if rank >= 0:
-                    player["ranking"] = player_ranking
+                    player["ranking"] = int(player_ranking)
                     ranking_control = True
                 else:
                     print('Le classement doit être un nombre entier positif.')

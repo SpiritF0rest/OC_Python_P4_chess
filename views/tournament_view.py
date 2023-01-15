@@ -75,8 +75,10 @@ def add_player_to_tournament_view(tournament, players):
     if len(players) == 0:
         print("Aucun joueur existant. Merci de créer des joueurs avant de pouvoir les ajouter au tournoi.")
         return None
-    print(f"here the tournament {tournament}")
     available_players = [player for player in players if player not in tournament.players]
+    if len(available_players) == 0:
+        print("Tous les joueurs créés ont été ajoutés au tournoi. Il n'y a donc plus de joueur à ajouter.")
+        return None
     player_choice = input(f"""Sélectionnez un joueur à ajouter au tournoi:
     {[f"{available_players.index(el)}: {el.firstname} {el.lastname}" for el in available_players]}
     choix: """)

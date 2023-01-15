@@ -164,7 +164,7 @@ class MenuController:
             },
             "2": {
                 "text": "Saisir les résultats d'un round",
-                "action": None
+                "action": self.round_controller.rounds_results
             },
             "3": {
                 "text": "Sauvegarder",
@@ -175,5 +175,5 @@ class MenuController:
                 "action": self.home_menu_ctrl
             },
         }
-        choice = menu_view.print_menu(menu, "Votre choix: ", "Un nouveau classement ?")
+        choice = menu_view.print_menu(menu, "Votre choix: ", "Gestion des rounds")
         menu[choice]["action"]()
