@@ -8,4 +8,4 @@ class Player:
         self.opponents = [] if opponents is None else opponents
 
     def __str__(self):
-        return self.firstname + " " + self.lastname
+        return self.firstname.capitalize() + " " + self.lastname.capitalize()

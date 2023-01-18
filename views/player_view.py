@@ -34,9 +34,9 @@ def add_player_view():
                     print("La date de naissance ne peut être postérieure à aujourd'hui.")
             except ValueError:
                 print("Merci d'entrer une date d'anniversaire valide, ex: 14-08-1987")
-        player_gender = input("Sexe (homme, femme ou autre): ")
-        while player_gender not in ["homme", "femme", "autre"]:
-            player_gender = input("Merci d'entrer une des valeurs (homme, femme ou autre). Sexe: ")
+        player_gender = input("Sexe ('H' = homme, 'F' = femme ou 'autre'): ")
+        while player_gender not in ["H", "F", "autre"]:
+            player_gender = input("Merci d'entrer une de ces valeurs ('H', 'F' ou 'autre'). Sexe: ")
         player["gender"] = player_gender
         ranking_control = False
         while ranking_control is not True:
@@ -52,7 +52,7 @@ def add_player_view():
                 print("Merci d'entrer un nombre entier positif.")
         player_control = True
     print(f"""Nouveau joueur créé !
-    {player["lastname"]} {player["firstname"]}:
+    {player["firstname"].capitalize()} {player["lastname"].capitalize()}:
     - né le: {player["birth_date"]}
     - genre: {player["gender"]}
     - classement actuel: {player["ranking"]}""")

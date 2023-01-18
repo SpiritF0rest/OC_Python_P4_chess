@@ -21,6 +21,10 @@ def add_tournament_view():
         while not tournament_locality.isalpha():
             tournament_locality = input("Merci d'entrer un lieu valide. Lieu: ")
         tournament["locality"] = tournament_locality
+        description = input("Description du tournoi: ")
+        while not description.isprintable():
+            description = input("Merci d'entrer une description non formatée (ex: pas de saut de ligne). Description: ")
+        tournament["description"] = description
         start_date_control = False
         today = datetime.today().strftime("%d-%m-%Y")
         while start_date_control is False:
@@ -63,6 +67,7 @@ def add_tournament_view():
         tournament_control = True
     print(f"""Nouveau tournoi ajouté !
     {tournament["name"]} à {tournament["locality"]}:
+    - Description: {tournament["description"]}
     - Début: {tournament["start"]}
     - Fin: {tournament["end"]}
     - Contrôle de temps: {tournament["time_ctrl"]}
@@ -80,7 +85,7 @@ def add_player_to_tournament_view(tournament, players):
         print("Tous les joueurs créés ont été ajoutés au tournoi. Il n'y a donc plus de joueur à ajouter.")
         return None
     player_choice = input(f"""Sélectionnez un joueur à ajouter au tournoi:
-    {[f"{available_players.index(el)}: {el.firstname} {el.lastname}" for el in available_players]}
+    {[f"{available_players.index(el)}: {el}" for el in available_players]}
     choix: """)
     while not player_choice.isdigit() or int(player_choice) < 0 or int(player_choice) >= len(players):
         player_choice = input("Merci de saisir une option valide. Joueur n°: ")
