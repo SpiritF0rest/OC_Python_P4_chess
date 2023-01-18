@@ -1,7 +1,9 @@
 from models.round import Round
 from views.round_view import generate_players_pairs, enter_results
 from views.tournament_view import choose_tournament_view
+from views.player_view import update_ranking
 from datetime import datetime
+from settings import SEPARATOR
 
 
 class RoundController:
@@ -46,3 +48,5 @@ class RoundController:
                                                       key=lambda x: (x[1], x[0].ranking), reverse=True))
                 for player, score in sorted_players_by_score.items():
                     print(f"- {player}: {score} points.")
+                print(SEPARATOR)
+                update_ranking(selected_tournament.players, True)

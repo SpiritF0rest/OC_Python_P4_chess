@@ -1,6 +1,7 @@
 from controllers.player_ctrl import PlayerController
 from controllers.tournament_ctrl import TournamentController
 from controllers.round_ctrl import RoundController
+from controllers.report_ctrl import ReportController
 from views import menu_view
 
 
@@ -11,6 +12,8 @@ class MenuController:
         self.player_controller = PlayerController()
         self.tournament_controller = TournamentController(players=self.player_controller.players)
         self.round_controller = RoundController(tournaments=self.tournament_controller.tournaments)
+        self.report_controller = ReportController(tournaments=self.tournament_controller.tournaments,
+                                                  players=self.player_controller.players)
 
     def stop_script(self):
         print("À bientôt !")
@@ -63,14 +66,10 @@ class MenuController:
                 "action": self.round_menu
             },
             "4": {
-                "text": "Terminer le tournoi",
-                "action": None
-            },
-            "5": {
                 "text": "Sauvegarder",
                 "action": None
             },
-            "6": {
+            "5": {
                 "text": "Retour au menu principal",
                 "action": self.home_menu_ctrl
             },
@@ -104,7 +103,7 @@ class MenuController:
         menu = {
             "1": {
                 "text": "Modifier le classement d'un joueur",
-                "action": None
+                "action": self.player_controller.update_player_ranking
             },
             "2": {
                 "text": "Afficher le classement d'un joueur",
@@ -126,23 +125,23 @@ class MenuController:
         menu = {
             "1": {
                 "text": "Liste de tous les joueurs",
-                "action": None
+                "action": self.report_controller.all_players_report
             },
             "2": {
                 "text": "Liste de tous les joueurs d'un tournoi précis",
-                "action": None
+                "action": self.report_controller.players_of_specific_tournament_report
             },
             "3": {
                 "text": "Liste de tous les tournois",
-                "action": None
+                "action": self.report_controller.all_tournaments_report
             },
             "4": {
                 "text": "Liste de tous les tours d'un tournoi",
-                "action": None
+                "action": self.report_controller.rounds_of_specific_tournament_report
             },
             "5": {
                 "text": "Liste de tous les matchs d'un tournoi",
-                "action": None
+                "action": self.report_controller.matches_of_specific_tournament_report
             },
             "6": {
                 "text": "Sauvegarder",

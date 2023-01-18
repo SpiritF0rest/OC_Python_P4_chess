@@ -57,3 +57,54 @@ def add_player_view():
     - genre: {player["gender"]}
     - classement actuel: {player["ranking"]}""")
     return player
+
+
+def update_ranking(players_list, is_end_tournament):
+    print(SEPARATOR)
+    if len(players_list) == 0:
+        print("Aucun joueur. Merci de créer des joueurs avant de pouvoir modifier un classement.")
+        return None
+    if is_end_tournament is False:
+        task_control = False
+        while task_control is False:
+            select_player = input(f"""Sélectionnez le joueur :
+            {[f"{players_list.index(el)}: {el}" for el in players_list]}
+            choix: """)
+            while not select_player.isdigit() or int(select_player) < 0 or int(select_player) >= len(players_list):
+                select_player = input("Merci de saisir une option valide. Joueur n°: ")
+            player = players_list[int(select_player)]
+            print(f"Le classement actuel de {player} est: {player.ranking}")
+            ranking_control = False
+            while ranking_control is not True:
+                new_rank = input("Nouveau classement: ")
+                try:
+                    rank = int(new_rank)
+                    if rank >= 0:
+                        player.ranking = int(new_rank)
+                        ranking_control = True
+                    else:
+                        print('Le classement doit être un nombre entier positif.')
+                except ValueError:
+                    print("Merci d'entrer un nombre entier positif.")
+            print(f"Le nouveau classement de {player} est: {player.ranking}")
+            ask_end_task = input("Souhaitez-vous modifier un autre classement de joueur ? ('O' = oui, 'N' = non): ")
+            while ask_end_task not in ["O", "N"]:
+                ask_end_task = input("Merci de saisir une option valide ('O' = oui, 'N' = non). Choix: ")
+            if ask_end_task == "N":
+                task_control = True
+    else:
+        for player in players_list:
+            print(f"Le classement actuel de {player} est: {player.ranking}")
+            ranking_control = False
+            while ranking_control is not True:
+                new_rank = input("Nouveau classement: ")
+                try:
+                    rank = int(new_rank)
+                    if rank >= 0:
+                        player.ranking = int(new_rank)
+                        ranking_control = True
+                    else:
+                        print('Le classement doit être un nombre entier positif.')
+                except ValueError:
+                    print("Merci d'entrer un nombre entier positif.")
+            print(f"Le nouveau classement de {player} est: {player.ranking}")

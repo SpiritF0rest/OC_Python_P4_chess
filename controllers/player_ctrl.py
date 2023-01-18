@@ -15,3 +15,6 @@ class PlayerController:
                             player["gender"],
                             player["ranking"])
         self.players.append(new_player)
+
+    def update_player_ranking(self):
+        player_view.update_ranking(self.players, False)
