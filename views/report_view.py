@@ -1,17 +1,26 @@
 from settings import SEPARATOR
 
 
-def all_players_report_view(players):
+def players_report_view(players):
     print(SEPARATOR)
     sort_type = input("""Quel type de tri souhaitez-vous ?
     1 - par ordre alphabétique
-    2 - par classement""")
+    2 - par classement
+    Choix: """)
     while sort_type not in ["1", "2"]:
         sort_type = input("Merci de choisir une option valide entre '1' et '2'.")
     if sort_type == "1":
-        pass
+        player_sorted_list = sorted(players, key=lambda player_obj: (player_obj.lastname, player_obj.firstname))
     else:
-        pass
+        player_sorted_list = sorted(players,
+                                    key=lambda player_obj: (player_obj.ranking, player_obj.lastname),
+                                    reverse=True)
+    for player in player_sorted_list:
+        print(f"{'-' * 25}")
+        print(f"""{player}
+        Né(e) le: {player.birth_date}
+        Sexe: {player.gender}
+        Classement: {player.ranking}""")
 
 
 def all_tournaments_report_view(tournaments):

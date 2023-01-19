@@ -84,8 +84,8 @@ class MenuController:
                 "action": self.player_controller.post_new_player
             },
             "2": {
-                "text": "Afficher un joueur",
-                "action": None
+                "text": "Afficher les informations d'un joueur",
+                "action": self.player_controller.get_player_informations
             },
             "3": {
                 "text": "Sauvegarder",
@@ -107,7 +107,7 @@ class MenuController:
             },
             "2": {
                 "text": "Afficher le classement d'un joueur",
-                "action": None
+                "action": self.player_controller.get_player_ranking
             },
             "3": {
                 "text": "Sauvegarder",

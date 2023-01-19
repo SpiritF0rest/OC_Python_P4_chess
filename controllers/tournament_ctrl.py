@@ -23,6 +23,9 @@ class TournamentController:
 
     def add_player_to_tournament(self):
         select_tournament = tournament_view.choose_tournament_view(self.tournaments)
-        select_player = tournament_view.add_player_to_tournament_view(select_tournament, self.players)
-        if select_player is not None:
-            select_tournament.players.append(select_player)
+        if len(select_tournament.rounds) == 0:
+            select_player = tournament_view.add_player_to_tournament_view(select_tournament, self.players)
+            if select_player is not None:
+                select_tournament.players.append(select_player)
+        else:
+            print("Le tournoi est commencé. Impossible d'ajouter un joueur.")

@@ -18,3 +18,15 @@ class PlayerController:
 
     def update_player_ranking(self):
         player_view.update_ranking(self.players, False)
+
+    def get_player_informations(self):
+        if len(self.players) > 0:
+            player_view.get_player_informations_view(self.players, "les informations")
+        else:
+            print("Aucun joueur existant.")
+
+    def get_player_ranking(self):
+        if len(self.players) > 0:
+            player_view.get_player_informations_view(self.players, "le classement")
+        else:
+            print("Aucun joueur existant.")

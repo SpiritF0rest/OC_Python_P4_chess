@@ -6,7 +6,7 @@ def generate_players_pairs(players, current_round, players_total_score):
     print(SEPARATOR)
     print(current_round.name.upper())
     if current_round.name == "Round 1":
-        first_round_players_list = sorted(players, key=lambda player: player.ranking, reverse=True)
+        first_round_players_list = sorted(players, key=lambda player_obj: player_obj.ranking, reverse=True)
         number_of_players = len(first_round_players_list)
         players_part_up = first_round_players_list[0:int((number_of_players/2))]
         players_part_down = first_round_players_list[int((number_of_players/2)):]

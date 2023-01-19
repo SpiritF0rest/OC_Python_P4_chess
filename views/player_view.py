@@ -108,3 +108,21 @@ def update_ranking(players_list, is_end_tournament):
                 except ValueError:
                     print("Merci d'entrer un nombre entier positif.")
             print(f"Le nouveau classement de {player} est: {player.ranking}")
+
+
+def get_player_informations_view(players, type_of_information):
+    print(SEPARATOR)
+    player_sorted_list = sorted(players, key=lambda player_obj: (player_obj.lastname, player_obj.firstname))
+    selected_player = input(f"""De quel joueur souhaitez vous {type_of_information} ?
+    {[f"{player_sorted_list.index(el)}: {el}" for el in player_sorted_list]}
+    Choix: """)
+    while not selected_player.isdigit() or int(selected_player) < 0 or int(selected_player) >= len(players):
+        selected_player = input("Merci de saisir une option valide. Joueur n°: ")
+    if type_of_information == "les informations":
+        print(f"""{player_sorted_list[int(selected_player)]}
+                Né(e) le: {player_sorted_list[int(selected_player)].birth_date}
+                Sexe: {player_sorted_list[int(selected_player)].gender}
+                Classement: {player_sorted_list[int(selected_player)].ranking}""")
+    elif type_of_information == "le classement":
+        print(f"""{player_sorted_list[int(selected_player)]}
+                Classement: {player_sorted_list[int(selected_player)].ranking}""")
