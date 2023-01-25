@@ -2,6 +2,7 @@ from controllers.player_ctrl import PlayerController
 from controllers.tournament_ctrl import TournamentController
 from controllers.round_ctrl import RoundController
 from controllers.report_ctrl import ReportController
+from controllers.save_ctrl import SaveController
 from views import menu_view
 
 
@@ -14,6 +15,8 @@ class MenuController:
         self.round_controller = RoundController(tournaments=self.tournament_controller.tournaments)
         self.report_controller = ReportController(tournaments=self.tournament_controller.tournaments,
                                                   players=self.player_controller.players)
+        self.save_controller = SaveController(players=self.player_controller.players,
+                                              tournaments=self.tournament_controller.tournaments)
 
     def stop_script(self):
         print("À bientôt !")
@@ -39,10 +42,14 @@ class MenuController:
                     "action": self.report_generator_menu
                 },
                 "5": {
-                    "text": "Sauvegarder",
-                    "action": None
+                    "text": "Chargement des données",
+                    "action": self.save_controller.loading_data
                 },
                 "6": {
+                    "text": "Sauvegarder",
+                    "action": self.save_controller.save_data
+                },
+                "7": {
                     "text": "Quitter",
                     "action": self.stop_script
                 },
@@ -67,7 +74,7 @@ class MenuController:
             },
             "4": {
                 "text": "Sauvegarder",
-                "action": None
+                "action": self.save_controller.save_data
             },
             "5": {
                 "text": "Retour au menu principal",
@@ -89,7 +96,7 @@ class MenuController:
             },
             "3": {
                 "text": "Sauvegarder",
-                "action": None
+                "action": self.save_controller.save_data
             },
             "4": {
                 "text": "Retour au menu principal",
@@ -111,7 +118,7 @@ class MenuController:
             },
             "3": {
                 "text": "Sauvegarder",
-                "action": None
+                "action": self.save_controller.save_data
             },
             "4": {
                 "text": "Retour au menu principal",
@@ -145,7 +152,7 @@ class MenuController:
             },
             "6": {
                 "text": "Sauvegarder",
-                "action": None
+                "action": self.save_controller.save_data
             },
             "7": {
                 "text": "Retour au menu principal",
@@ -167,7 +174,7 @@ class MenuController:
             },
             "3": {
                 "text": "Sauvegarder",
-                "action": None
+                "action": self.save_controller.save_data
             },
             "4": {
                 "text": "Retour au menu principal",

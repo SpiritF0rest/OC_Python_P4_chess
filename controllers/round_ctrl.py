@@ -23,7 +23,7 @@ class RoundController:
                 else:
                     new_round_name = "Round 1" if len(current_tournament.rounds) == 0 \
                         else f"Round {len(current_tournament.rounds)+1}"
-                    new_round_start = datetime.now()
+                    new_round_start = datetime.now().strftime("%d-%m-%y %H:%M:%S")
                     new_round = Round(new_round_name, new_round_start)
                     current_tournament.rounds.append(new_round)
                     generate_players_pairs(current_tournament.players,
@@ -39,7 +39,7 @@ class RoundController:
         if selected_tournament is not None:
             select_round = selected_tournament.rounds[-1]
             enter_results(select_round, selected_tournament)
-            select_round.end = datetime.now()
+            select_round.end = datetime.now().strftime("%d-%m-%y %H:%M:%S")
             if len(selected_tournament.rounds) == int(selected_tournament.total_rounds):
                 for player in selected_tournament.players:
                     player.opponents.clear()
