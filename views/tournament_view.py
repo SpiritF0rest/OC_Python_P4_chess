@@ -80,16 +80,17 @@ def add_player_to_tournament_view(tournament, players):
     if len(players) == 0:
         print("Aucun joueur existant. Merci de créer des joueurs avant de pouvoir les ajouter au tournoi.")
         return None
-    available_players = [player for player in players if player not in tournament.players]
+    available_players = {str(index): player for (index, player) in enumerate(players, start=1)
+                         if player not in tournament.players}
     if len(available_players) == 0:
         print("Tous les joueurs créés ont été ajoutés au tournoi. Il n'y a donc plus de joueur à ajouter.")
         return None
     print(f"Sélectionnez un joueur à ajouter au tournoi:")
-    [print(f"{available_players.index(el)+1}: {el}") for el in available_players]
+    [print(f"{index}: {el}") for (index, el) in available_players.items()]
     player_choice = input("choix: ")
-    while not player_choice.isdigit() or int(player_choice) < 0 or int(player_choice) >= len(players)+1:
+    while player_choice not in available_players:
         player_choice = input("Merci de saisir une option valide. Joueur n°: ")
-    return available_players[int(player_choice)-1]
+    return available_players[player_choice]
 
 
 def choose_tournament_view(tournaments):
@@ -97,9 +98,10 @@ def choose_tournament_view(tournaments):
     if len(tournaments) == 0:
         print("Aucun tournoi existant ou répondant aux critères.")
         return None
+    tournaments_dict = {str(index): el for (index, el) in enumerate(tournaments, start=1)}
     print("Sélectionnez un tournoi:")
-    [print(f"{tournaments.index(el)+1}: {el.name}") for el in tournaments]
+    [print(f"{index}: {el.name}") for (index, el) in tournaments_dict.items()]
     tournament_choice = input("choix: ")
-    while not tournament_choice.isdigit() or int(tournament_choice) < 0 or int(tournament_choice) >= len(tournaments)+1:
+    while tournament_choice not in tournaments_dict:
         tournament_choice = input("Merci de saisir une option valide. Tournoi n°: ")
-    return tournaments[int(tournament_choice)-1]
+    return tournaments_dict[tournament_choice]

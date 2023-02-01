@@ -1,4 +1,5 @@
 from tinydb import TinyDB
+from datetime import datetime
 from models.player import Player
 from models.tournament import Tournament
 from models.round import Round
@@ -49,8 +50,8 @@ class SaveController:
                                 matches.append(serialized_match)
                         serialized_round = {
                             'name': round_el.name,
-                            'start': round_el.start,
-                            'end': round_el.end,
+                            'start': round_el.start.strftime("%d-%m-%y %H:%M:%S"),
+                            'end': round_el.end.strftime("%d-%m-%y %H:%M:%S"),
                             'matches': matches
                         }
                         rounds.append(serialized_round)
@@ -77,6 +78,8 @@ class SaveController:
         self.save_tournaments_data()
 
     def loading_data(self):
+        self.players.clear()
+        self.tournaments.clear()
         db = TinyDB("chess_data.json", indent=4)
         serialized_players = db.table("players").all()
         serialized_tournaments = db.table("tournaments").all()
@@ -108,8 +111,8 @@ class SaveController:
                 if len(tournament["rounds"]) > 0:
                     for round_el in tournament["rounds"]:
                         loaded_round = Round(name=round_el["name"],
-                                             start=round_el["start"],
-                                             end=round_el["end"],
+                                             start=datetime.strptime(round_el["start"], "%d-%m-%y %H:%M:%S"),
+                                             end=datetime.strptime(round_el["end"], "%d-%m-%y %H:%M:%S"),
                                              matches=[])
                         if len(round_el["matches"]) > 0:
                             for match in round_el["matches"]:

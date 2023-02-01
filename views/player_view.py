@@ -1,4 +1,5 @@
 from datetime import datetime
+from textwrap import dedent
 from settings import SEPARATOR
 
 
@@ -67,12 +68,13 @@ def update_ranking(players_list, is_end_tournament):
     if is_end_tournament is False:
         task_control = False
         while task_control is False:
+            players_dict = {str(index): el for (index, el) in enumerate(players_list, start=1)}
             print(f"Sélectionnez le joueur :")
-            [print(f"{players_list.index(el)+1}: {el}") for el in players_list]
+            [print(f"{index}: {el}") for (index, el) in players_dict.items()]
             select_player = input("choix: ")
-            while not select_player.isdigit() or int(select_player) < 0 or int(select_player) >= len(players_list)+1:
+            while select_player not in players_dict:
                 select_player = input("Merci de saisir une option valide. Joueur n°: ")
-            player = players_list[int(select_player)-1]
+            player = players_dict[select_player]
             print(f"Le classement actuel de {player} est: {player.ranking}")
             ranking_control = False
             while ranking_control is not True:
@@ -113,16 +115,19 @@ def update_ranking(players_list, is_end_tournament):
 def get_player_informations_view(players, type_of_information):
     print(SEPARATOR)
     player_sorted_list = sorted(players, key=lambda player_obj: (player_obj.lastname, player_obj.firstname))
+    player_sorted_dict = {str(index): el for (index, el) in enumerate(player_sorted_list, start=1)}
     print(f"De quel joueur souhaitez vous {type_of_information} ?")
-    [print(f"{player_sorted_list.index(el)+1}: {el}") for el in player_sorted_list]
+    [print(f"{index}: {el}") for (index, el) in player_sorted_dict.items()]
     selected_player = input("Choix: ")
-    while not selected_player.isdigit() or int(selected_player) < 0 or int(selected_player) >= len(players)+1:
+    while selected_player not in player_sorted_dict:
         selected_player = input("Merci de saisir une option valide. Joueur n°: ")
     if type_of_information == "les informations":
-        print(f"""{player_sorted_list[int(selected_player)-1]}
-                Né(e) le: {player_sorted_list[int(selected_player)-1].birth_date}
-                Sexe: {player_sorted_list[int(selected_player)-1].gender}
-                Classement: {player_sorted_list[int(selected_player)-1].ranking}""")
+        print(dedent(f"""\
+        - {player_sorted_dict[selected_player]}
+          Né(e) le: {player_sorted_dict[selected_player].birth_date}
+          Sexe: {player_sorted_dict[selected_player].gender}
+          Classement: {player_sorted_dict[selected_player].ranking}"""))
     elif type_of_information == "le classement":
-        print(f"""{player_sorted_list[int(selected_player)-1]}
-                Classement: {player_sorted_list[int(selected_player)-1].ranking}""")
+        print(dedent(f"""\
+        - {player_sorted_dict[selected_player]}
+          Classement: {player_sorted_dict[selected_player].ranking}"""))
