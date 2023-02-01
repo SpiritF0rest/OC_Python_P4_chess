@@ -61,6 +61,16 @@ def add_player_view():
 
 
 def update_ranking(players_list, is_end_tournament):
+    """
+    Update the rank of a selected player or all players of a tournament at the end
+
+    Args:
+        players_list(list): List of all players or list of tournament players
+        is_end_tournament(bool): Is the last round of tournament or not
+
+    Returns:
+        None: if there are no players
+    """
     print(SEPARATOR)
     if len(players_list) == 0:
         print("Aucun joueur. Merci de créer des joueurs avant de pouvoir modifier un classement.")
@@ -112,8 +122,16 @@ def update_ranking(players_list, is_end_tournament):
             print(f"Le nouveau classement de {player} est: {player.ranking}")
 
 
-def get_player_informations_view(players, type_of_information):
+def get_player_data_view(players, type_of_information):
+    """
+    Get all data of a player or only the ranking
+
+    Args:
+        players(list): List of all players
+        type_of_information(str): Either data or ranking ('les informations' or 'le classement')
+    """
     print(SEPARATOR)
+    # sorting by players alphabetical
     player_sorted_list = sorted(players, key=lambda player_obj: (player_obj.lastname, player_obj.firstname))
     player_sorted_dict = {str(index): el for (index, el) in enumerate(player_sorted_list, start=1)}
     print(f"De quel joueur souhaitez vous {type_of_information} ?")

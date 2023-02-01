@@ -12,8 +12,10 @@ def players_report_view(players):
     while sort_type not in ["1", "2"]:
         sort_type = input("Merci de choisir une option valide entre '1' et '2'.")
     if sort_type == "1":
+        # sorting by players alphabetical
         player_sorted_list = sorted(players, key=lambda player_obj: (player_obj.lastname, player_obj.firstname))
     else:
+        # sorting by players ranking then alphabetical
         player_sorted_list = sorted(players,
                                     key=lambda player_obj: (player_obj.ranking, player_obj.lastname),
                                     reverse=True)

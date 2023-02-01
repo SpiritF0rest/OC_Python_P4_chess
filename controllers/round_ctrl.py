@@ -13,6 +13,7 @@ class RoundController:
         self.current_matches = [] if current_matches is None else current_matches
 
     def start_round(self):
+        # filter tournaments whose number of players is even and > 8
         tournaments = filter(lambda tournament: len(tournament.players) % 2 == 0 and len(tournament.players) >= 8,
                              self.tournaments)
         current_tournament = choose_tournament_view(list(tournaments))

@@ -92,7 +92,7 @@ class MenuController:
             },
             "2": {
                 "text": "Afficher les informations d'un joueur",
-                "action": self.player_controller.get_player_informations
+                "action": self.player_controller.get_player_data
             },
             "3": {
                 "text": "Sauvegarder",

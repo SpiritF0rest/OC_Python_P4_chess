@@ -3,9 +3,18 @@ from models.match import Match
 
 
 def generate_players_pairs(players, current_round, players_total_score):
+    """
+        Algorithm to create pairs of player according to the principle of the Swiss tournament.
+
+        Args:
+            players(list): List of tournament players
+            current_round(obj): Instance of the current round
+            players_total_score(dict): Dict with key: player instance / value: total score for tournament players
+    """
     print(SEPARATOR)
     print(current_round.name.upper())
     if current_round.name == "Round 1":
+        # sorting by players ranking
         first_round_players_list = sorted(players, key=lambda player_obj: player_obj.ranking, reverse=True)
         number_of_players = len(first_round_players_list)
         players_part_up = first_round_players_list[0:int((number_of_players/2))]
@@ -18,7 +27,7 @@ def generate_players_pairs(players, current_round, players_total_score):
             current_round.matches.append(new_match)
             print(f"Match: {player} VS {opponent}")
     else:
-        "ANOTHER ROUNDS"
+        # for all another round sorting by player total score then ranking
         sort_players_dict = dict(sorted(players_total_score.items(), key=lambda x: (x[1], x[0].ranking), reverse=True))
         round_players_list = list(sort_players_dict).copy()
         assign_all_players_control = False

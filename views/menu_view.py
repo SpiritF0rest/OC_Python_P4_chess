@@ -9,6 +9,7 @@ def print_menu(menu, message, intro):
     choice = input(message)
     number_of_tries = 0
     while choice not in menu:
+        # Reminds you of the possible choices after 10 incorrect entries.
         if number_of_tries == 10:
             number_of_tries -= 9
             print(SEPARATOR)

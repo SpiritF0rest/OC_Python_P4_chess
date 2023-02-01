@@ -34,8 +34,7 @@ class SaveController:
         tournament_table.truncate()
         if len(self.tournaments) > 0:
             for tournament in self.tournaments:
-                players = [self.players.index(player) for player in tournament.players] \
-                    if len(tournament.players) > 0 else []
+                players = [self.players.index(player) for player in tournament.players]
                 rounds = []
                 if len(tournament.rounds) > 0:
                     for round_el in tournament.rounds:
@@ -56,8 +55,7 @@ class SaveController:
                         }
                         rounds.append(serialized_round)
                 players_score = {self.players.index(player): score
-                                 for (player, score) in tournament.players_total_score.items()} \
-                    if len(tournament.players_total_score) > 0 else {}
+                                 for (player, score) in tournament.players_total_score.items()}
                 tournament_table.insert({
                     'name': tournament.name,
                     'locality': tournament.locality,
@@ -93,11 +91,9 @@ class SaveController:
                 self.players.append(loaded_player)
         if len(serialized_tournaments) > 0:
             for tournament in serialized_tournaments:
-                players = [self.players[index] for index in tournament["players"]] \
-                    if len(tournament["players"]) > 0 else []
+                players = [self.players[index] for index in tournament["players"]]
                 players_score = {self.players[int(index)]: score
-                                 for (index, score) in tournament["players_total_score"].items()} \
-                    if len(tournament["players_total_score"]) > 0 else {}
+                                 for (index, score) in tournament["players_total_score"].items()}
                 loaded_tournament = Tournament(name=tournament["name"],
                                                locality=tournament["locality"],
                                                start=tournament["start"],
