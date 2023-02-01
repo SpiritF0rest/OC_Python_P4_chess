@@ -23,7 +23,7 @@ def add_tournament_view():
         tournament["locality"] = tournament_locality
         description = input("Description du tournoi: ")
         while not description.isprintable():
-            description = input("Merci d'entrer une description non formatée (ex: pas de saut de ligne). Description: ")
+            description = input("Merci d'entrer une description non formatée, ex: pas de saut de ligne. Description: ")
         tournament["description"] = description
         start_date_control = False
         today = datetime.today().strftime("%d-%m-%Y")
@@ -56,7 +56,7 @@ def add_tournament_view():
         tournament["time_ctrl"] = tournament_time_ctrl
         tournament_total_rounds_update = input("Voulez-vous changer le nombre de tours, (4 par défaut)? (oui/non): ")
         while tournament_total_rounds_update not in ["oui", "non"]:
-            tournament_total_rounds_update = input("Merci de répondre par oui ou non. Changement du nombre de tours ? ")
+            tournament_total_rounds_update = input("Merci de répondre par oui ou non. Changement du nombre de tours ?")
         if tournament_total_rounds_update == "oui":
             tournament_total_rounds = input("Nombre de tours: ")
             while not tournament_total_rounds.isdigit() and int(tournament_total_rounds) < 3:
@@ -85,7 +85,7 @@ def add_player_to_tournament_view(tournament, players):
     if len(available_players) == 0:
         print("Tous les joueurs créés ont été ajoutés au tournoi. Il n'y a donc plus de joueur à ajouter.")
         return None
-    print(f"Sélectionnez un joueur à ajouter au tournoi:")
+    print("Sélectionnez un joueur à ajouter au tournoi:")
     [print(f"{index}: {el}") for (index, el) in available_players.items()]
     player_choice = input("choix: ")
     while player_choice not in available_players:

@@ -34,12 +34,12 @@ def all_tournaments_report_view(tournaments):
     for tournament in tournaments:
         print(f"{'-' * 25}")
         print(dedent(f"""\
-        \033[1m{tournaments.index(tournament)+1}- Tournoi: {tournament.name.capitalize()} \033[0m
-           Lieu: {tournament.locality}
-           Date: {f'{tournament.start} au {tournament.end}' if tournament.start != tournament.end else tournament.start}
-           Contrôle du temps: {tournament.time_ctrl}
-           Nombre de tours: {tournament.total_rounds}
-           Description: {tournament.description}"""))
+        \033[1m{tournaments.index(tournament)+1}-Tournoi: {tournament.name.capitalize()} \033[0m
+          Lieu: {tournament.locality}
+          Date: {f'{tournament.start} au {tournament.end}' if tournament.start != tournament.end else tournament.start}
+          Contrôle du temps: {tournament.time_ctrl}
+          Nombre de tours: {tournament.total_rounds}
+          Description: {tournament.description}"""))
 
 
 def rounds_of_specific_tournament_view(tournament):

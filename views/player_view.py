@@ -79,7 +79,7 @@ def update_ranking(players_list, is_end_tournament):
         task_control = False
         while task_control is False:
             players_dict = {str(index): el for (index, el) in enumerate(players_list, start=1)}
-            print(f"Sélectionnez le joueur :")
+            print("Sélectionnez le joueur :")
             [print(f"{index}: {el}") for (index, el) in players_dict.items()]
             select_player = input("choix: ")
             while select_player not in players_dict:
